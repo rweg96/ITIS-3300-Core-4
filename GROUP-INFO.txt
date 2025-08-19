@@ -1,6 +1,6 @@
 Group Name: The Core 4
 
 Members:
-Ryan Wegener
+Ryan Wegener - Programming
 Jeff Pautrat UI UX Design
 Carson Carmody - Front-end design
