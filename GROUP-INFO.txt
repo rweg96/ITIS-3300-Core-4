@@ -2,3 +2,6 @@ Group Name: The Core 4
 
 Members:
 Ryan Wegener
+
+Tyler Niemonen
+Skills: UI/UX Desginer, not a big fan of coding but will do it. More front-end development. Very schedule oriented likes when things are laid out with a plan.
