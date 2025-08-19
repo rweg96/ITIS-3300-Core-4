@@ -4,4 +4,4 @@ Members:
 Ryan Wegener - Programming
 Jeff Pautrat UI UX Design
 Carson Carmody - Front-end design
-Tyler Niemonen - UI/UX, more front end development with data analysis.
+Tyler Niemonen - UI/UX, more front end development with data analysis, building graphic representations.
