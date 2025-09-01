@@ -8,7 +8,8 @@ GROUP PROJECT
 .
 ├── deliverable1.txt
 ├── documents
-│   └── The Core 4 - 1_ Project Proposal Report.pdf
+│   ├── TheCore4-Del1.pptx
+│   └── TheCore4-Deliverable1-Project Proposal.pdf
 ├── GROUP-INFO.txt
 ├── MEETING-TIMES.txt
 ├── README.md
