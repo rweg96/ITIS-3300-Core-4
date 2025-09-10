@@ -1,5 +1,14 @@
 6:00pm SUNDAY - VIRTUAL
 
 MEETING DATES: 
-9-1 VIRTUAL MEETING {Finalized Report document, and presentation slides}
-9-7 {Planning}
+8-24:{Introduction} 
+Members: Tyler, Carson, Jeff, Ryan
+-Started discussing our plans for what we wanted to do with our project, made sure we had the correct contact information as we were using Signal as a daily communication tool. Zoom/Signal Group call was used for our weekly meetings. This was more of an introductory call to get to know each other, better understand each other schedules, figure out any discrepancies and real life problems that might come up to better plan on due outs/timelines that needed to be met. Meeting lasted about 35 minutes.
+
+8-31: VIRTUAL MEETING {Finalized Report document, and presentation slides}
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+-We finalzied our Deliverable 1 project and our presentation slides, went over all of them to make sure that we were happy with the output for our turn in and ensured we weren't missing anything as to the rubric. Found out a new member had joined the group based off emails received over the Labor Day weekend. Jakia was caught up to speed on what our group idea project was, ensured she had access to Trello, Github, and got her on Signal group chat. Main goal for this meeting was to ensure our project deliverable was ready for turn in on 9/1. Also ensured everyone had properly completed their peer evalulation. Meeting lasted about 45 minutes.
+
+9-7 {Planning for Deliverable 2}
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+-We began discussing specific software requirement that we would need for our project. We made the final determination of what we were going to use for actual coding/developing. Decided on using python, SQL Lite database, FIGMA, and other assisting tools to ensure we had the right ones that would work together. Began creating the document and outline based of what we understood as the guildeines for Deliverable 2, as an example had been posted on Canvas. Group members started brainstorming and delegating tasks that would be used for Deliverable 2. Meeting lasted about 40 minutes.
