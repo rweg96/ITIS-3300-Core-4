@@ -12,3 +12,7 @@ Members: Tyler, Carson, Jeff, Ryan, Jakia
 9-7 {Planning for Deliverable 2}
 Members: Tyler, Carson, Jeff, Ryan, Jakia
 -We began discussing specific software requirement that we would need for our project. We made the final determination of what we were going to use for actual coding/developing. Decided on using python, SQL Lite database, FIGMA, and other assisting tools to ensure we had the right ones that would work together. Began creating the document and outline based of what we understood as the guildeines for Deliverable 2, as an example had been posted on Canvas. Group members started brainstorming and delegating tasks that would be used for Deliverable 2. Meeting lasted about 40 minutes.
+
+9-14 {Final Deliverable 2 Checks}
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+-We went over and finalized our deliverable 2 report ensuring that we met all the requirements according to the published rubric. Most of the project had been completed prior to the weekend, so this was just a weekly checkup and ensured the group was happy with our Deliverable 2. Final checks, word editing, and grammar/spelling was completed. Project will be submitted Monday in the Afternoon. Meeting lasted about 35 minutes.
