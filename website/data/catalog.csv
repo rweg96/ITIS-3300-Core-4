@@ -1,0 +1,46 @@
+﻿item_id,item_name,description,category_id,price,image_url
+1,Apple,Fresh red apple,1,0.5,images/apple.jpg
+2,Banana,Yellow ripe bananas,1,0.3,images/banana.jpg
+3,Carrot,Organic carrots,1,0.4,images/carrot.jpg
+4,Chicken Breast,Boneless skinless chicken breast,2,5,images/chicken_breast.jpg
+5,Ground Beef,Lean ground beef,2,4.5,images/ground_beef.jpg
+6,Salmon Fillet,Fresh Atlantic salmon fillet,2,8.5,images/salmon_fillet.jpg
+7,Milk,Whole milk (1 gallon),3,3,images/milk.jpg
+8,Cheddar Cheese,Cheddar cheese block,3,4,images/cheddar_cheese.jpg
+9,Yogurt,Greek yogurt (plain),3,1.2,images/yogurt.jpg
+10,Bread Loaf,Whole wheat bread loaf,4,2.5,images/bread_loaf.jpg
+11,Croissant,Buttery French croissant,4,1.8,images/croissant.jpg
+12,Muffin,Blueberry muffin,4,1.5,images/muffin.jpg
+13,Flour,All-purpose flour (5 lb),5,2.2,images/flour.jpg
+14,Sugar,Granulated sugar (4 lb),5,2,images/sugar.jpg
+15,Peanut Butter,Creamy peanut butter,5,3.5,images/peanut_butter.jpg
+16,Frozen Pizza,Cheese frozen pizza,6,4,images/frozen_pizza.jpg
+17,Frozen Vegetables,Mixed frozen vegetables,6,2.5,images/frozen_vegetables.jpg
+18,Ice Cream,Vanilla ice cream,6,3.7,images/ice_cream.jpg
+19,Soda,12-pack soda cans,7,5,images/soda.jpg
+20,Coffee,Ground coffee (12 oz),7,6,images/coffee.jpg
+21,Water,Bottled water (24 pack),7,4,images/water.jpg
+22,Chips,Potato chips bag,8,1.5,images/chips.jpg
+23,Popcorn,Microwave popcorn (3 pack),8,2,images/popcorn.jpg
+24,Chocolate Bar,Milk chocolate bar,8,1.2,images/chocolate_bar.jpg
+25,Toothpaste,Fluoride toothpaste tube,9,2.5,images/toothpaste.jpg
+26,Shampoo,Moisturizing shampoo bottle,9,4,images/shampoo.jpg
+27,Soap,Bar soap pack,9,1,images/soap.jpg
+28,Laundry Detergent,Liquid laundry detergent,10,6,images/laundry_detergent.jpg
+29,Dish Soap,Lemon dishwashing soap,10,2.5,images/dish_soap.jpg
+30,Paper Towels,Paper towels (6 rolls),10,5,images/paper_towels.jpg
+31,Dog Food,Dry dog food (10 lb),11,12,images/dog_food.jpg
+32,Cat Food,Canned cat food (pack of 12),11,10,images/cat_food.jpg
+33,Bird Seed,Bird seed mix (5 lb),11,8,images/bird_seed.jpg
+34,Ham,Sliced ham,12,4,images/ham.jpg
+35,Turkey,Sliced turkey,12,4.2,images/turkey.jpg
+36,Salami,Italian salami,12,3.8,images/salami.jpg
+37,Ketchup,Tomato ketchup bottle,13,2,images/ketchup.jpg
+38,Mayonnaise,Classic mayonnaise jar,13,3,images/mayonnaise.jpg
+39,BBQ Sauce,Barbecue sauce,13,2.5,images/bbq_sauce.jpg
+40,Canned Beans,Canned black beans,14,1,images/canned_beans.jpg
+41,Canned Corn,Canned sweet corn,14,1,images/canned_corn.jpg
+42,Canned Soup,Chicken noodle soup can,14,1.5,images/canned_soup.jpg
+43,Pasta,Spaghetti pasta,15,1.2,images/pasta.jpg
+44,Rice,Long grain white rice,15,2,images/rice.jpg
+45,Quinoa,Organic quinoa,15,3,images/quinoa.jpg
