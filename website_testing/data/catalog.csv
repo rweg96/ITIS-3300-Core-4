@@ -1,0 +1,46 @@
+﻿item_name, price ,image_url
+Apple,0.5,images/apple.jpg
+Banana,0.3,images/banana.jpg
+Carrot,0.4,images/carrot.jpg
+Chicken Breast,5,images/chicken_breast.jpg
+Ground Beef,4.5,images/ground_beef.jpg
+Salmon Fillet,8.5,images/salmon_fillet.jpg
+Milk,3,images/milk.jpg
+Cheddar Cheese,4,images/cheddar_cheese.jpg
+Yogurt,1.2,images/yogurt.jpg
+Bread Loaf,2.5,images/bread_loaf.jpg
+Croissant,1.8,images/croissant.jpg
+Muffin,1.5,images/muffin.jpg
+Flour,2.2,images/flour.jpg
+Sugar,2,images/sugar.jpg
+Peanut Butter,3.5,images/peanut_butter.jpg
+Frozen Pizza,4,images/frozen_pizza.jpg
+Frozen Vegetables,2.5,images/frozen_vegetables.jpg
+Ice Cream,3.7,images/ice_cream.jpg
+Soda,5,images/soda.jpg
+Coffee,6,images/coffee.jpg
+Water,4,images/water.jpg
+Chips,1.5,images/chips.jpg
+Popcorn,2,images/popcorn.jpg
+Chocolate Bar,1.2,images/chocolate_bar.jpg
+Toothpaste,2.5,images/toothpaste.jpg
+Shampoo,4,images/shampoo.jpg
+Soap,1,images/soap.jpg
+Laundry Detergent,6,images/laundry_detergent.jpg
+Dish Soap,2.5,images/dish_soap.jpg
+Paper Towels,5,images/paper_towels.jpg
+Dog Food,12,images/dog_food.jpg
+Cat Food,10,images/cat_food.jpg
+Bird Seed,8,images/bird_seed.jpg
+Ham,4,images/ham.jpg
+Turkey,4.2,images/turkey.jpg
+Salami,3.8,images/salami.jpg
+Ketchup,2,images/ketchup.jpg
+Mayonnaise,3,images/mayonnaise.jpg
+BBQ Sauce,2.5,images/bbq_sauce.jpg
+Canned Beans,1,images/canned_beans.jpg
+Canned Corn,1,images/canned_corn.jpg
+Canned Soup,1.5,images/canned_soup.jpg
+Pasta,1.2,images/pasta.jpg
+Rice,2,images/rice.jpg
+Quinoa,3,images/quinoa.jpg
