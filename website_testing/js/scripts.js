@@ -379,4 +379,142 @@ class Catalog {
   }
 
   window.addEventListener('DOMContentLoaded', App.init);
+
+  /* -------------------------------- Lists - Creation/Edit/Deletion --------------------------------- */
+
+
+  class ShoppingList {
+  constructor(name) {
+    this.name = name;
+    this.items = [];
+    this.dateCreated = new Date();
+  }
+
+  getInfo() {
+    return `${this.name} (Created: ${this.dateCreated.toLocaleString()})`;
+  }
+}
+
+// Renders list management (add/del/edit)
+class ListManager {
+  constructor(containerId) {
+    this.lists = [];
+    this.container = document.getElementById(containerId);
+  }
+
+  addList(name) {
+    if (!name.trim()) return alert("Name your list:");
+    const list = new ShoppingList(name);
+    this.lists.push(list);
+    this.render();
+  }
+
+  deleteList(index) {
+    this.lists.splice(index, 1);
+    this.render();
+  }
+
+  render() {
+    this.container.innerHTML = "";
+
+    this.lists.forEach((list, index) => {
+      const li = document.createElement("li");
+      li.className = "list-group-item";
+
+      const listHeader = document.createElement("div");
+      listHeader.className = "d-flex justify-content-between align-items-center mb-2";
+      listHeader.innerHTML = `<strong>${list.name}</strong><br><small class="text-muted">${list.dateCreated.toLocaleString()}</small>`;
+
+      const actions = document.createElement("div");
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "btn btn-sm btn-primary me-2";
+      editBtn.innerHTML = '<i class="bi bi-pencil-fill"></i>';
+      editBtn.addEventListener("click", () => this.editList(index));
+      actions.appendChild(editBtn);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "btn btn-sm btn-danger";
+      deleteBtn.innerHTML = '<i class="bi bi-trash"></i>';
+      deleteBtn.addEventListener("click", () => this.deleteList(index));
+      actions.appendChild(deleteBtn);
+
+      listHeader.appendChild(actions);
+      li.appendChild(listHeader);
+
+      if (list.items.length > 0) {
+        const ul = document.createElement("ul");
+        ul.className = "list-group list-group-flush";
+        list.items.forEach(item => {
+          const itemLi = document.createElement("li");
+          itemLi.className = "list-group-item py-1";
+          itemLi.textContent = item;
+          ul.appendChild(itemLi);
+        });
+        li.appendChild(ul);
+      }
+
+      this.container.appendChild(li);
+    });
+  }
+}
+
+// Page load + opens modal, creating + editing lists
+document.addEventListener("DOMContentLoaded", () => {
+  const manager = new ListManager("listsContainer");
+
+  const openModalBtn = document.getElementById("openCreateListBtn");
+  const saveListBtn = document.getElementById("saveListBtn");
+  const listModal = new bootstrap.Modal(document.getElementById("listModal"));
+  const listNameInput = document.getElementById("listNameInput");
+  const listItemsInput = document.getElementById("listItemsInput");
+
+  let editIndex = null;
+
+  openModalBtn.addEventListener("click", () => {
+    editIndex = null;
+    listNameInput.value = "";
+    listItemsInput.value = "";
+    document.getElementById("listModalLabel").textContent = "Create New List";
+    saveListBtn.textContent = "Create";
+    listModal.show();
+  });
+
+  saveListBtn.addEventListener("click", () => {
+    const name = listNameInput.value.trim();
+    const items = listItemsInput.value
+      .split("\n")
+      .map(i => i.trim())
+      .filter(i => i);
+
+    if (!name) return alert("Please enter a list name");
+
+    if (editIndex !== null) {
+
+      const list = manager.lists[editIndex];
+      list.name = name;
+      list.items = items;
+    } else {
+
+      const list = new ShoppingList(name);
+      list.items = items;
+      manager.lists.push(list);
+    }
+
+    manager.render();
+    listModal.hide();
+  });
+
+  // Opens modal for list editing
+  ListManager.prototype.editList = function(index) {
+    const list = this.lists[index];
+    editIndex = index;
+    listNameInput.value = list.name;
+    listItemsInput.value = list.items.join("\n");
+    document.getElementById("listModalLabel").textContent = "Edit List";
+    saveListBtn.textContent = "Save Changes";
+    listModal.show();
+  };
+});
+
 })();
