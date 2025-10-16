@@ -31,61 +31,117 @@
   }
 
   /* ------------------------------ Catalog ------------------------------ */
-  class Catalog {
-    static async load(csvPath = 'data/catalog.csv') {
-      const grid = Dom.$('#catalog');
-      if (!grid) return;
+class Catalog {
+  static allProducts = [];
 
-      try {
-        const res = await fetch(csvPath);
-        const text = await res.text();
-        const lines = text.split('\n').slice(1);
+  static async load(csvPath = 'data/catalog.csv') {
+    const grid = Dom.$('#catalog');
+    if (!grid) return;
 
-        grid.innerHTML = '';
-        const frag = document.createDocumentFragment();
+    try {
+      const res = await fetch(csvPath);
+      const text = await res.text();
+      const lines = text.split('\n').slice(1);
 
-        for (const line of lines) {
-          if (!line.trim()) continue;
-          const parts = line.split(',');
-          const name = parts[0] ? parts[0].trim() : '';
-          const price = parts[1] ? parts[1].trim() : '';
-          const img = parts[2] ? parts[2].trim() : '';
-          if (!name || !price || !img) continue;
-          const p = parseFloat(price);
-          if (isNaN(p)) continue;
-
-          const col = Dom.make('div', 'col-md-3 col-sm-6 mb-4');
-          col.innerHTML =
-            '<div class="card shadow-sm h-100">' +
-              '<img src="' + img + '" class="card-img-top" alt="' + name + '" onerror="this.src=\'images/default.jpg\';">' +
-              '<div class="card-body text-center">' +
-                '<h5>' + name + '</h5>' +
-                '<p>$' + p.toFixed(2) + '</p>' +
-                '<button class="btn btn-success btn-sm" data-action="add" data-name="' + name.replace(/"/g, '&quot;') + '" data-price="' + p + '">Add to Cart</button>' +
-              '</div>' +
-            '</div>';
-          frag.appendChild(col);
-        }
-
-        grid.appendChild(frag);
-
-        // one-time delegated handler
-        if (!grid._boundAddHandler) {
-          grid.addEventListener('click', (e) => {
-            const btn = e.target.closest('button[data-action="add"]');
-            if (!btn) return;
-            const name = btn.getAttribute('data-name');
-            const price = parseFloat(btn.getAttribute('data-price'));
-            Cart.add(name, price);
-            UI.updateCartCount();
-          });
-          grid._boundAddHandler = true;
-        }
-      } catch (err) {
-        console.log('Error loading products:', err);
+      const products = [];
+      for (const line of lines) {
+        if (!line.trim()) continue;
+        const parts = line.split(',');
+        const name = parts[0]?.trim();
+        const price = parseFloat(parts[1]);
+        const img = parts[2]?.trim();
+        const category = parts[3]?.trim() || "Misc";
+        if (!name || isNaN(price) || !img) continue;
+        products.push({ name, price, img, category });
       }
+
+      this.allProducts = products;
+      this.render(products);
+      this.populateCategories(products);
+      this.bindToolbar();
+    } catch (err) {
+      console.log('Error loading products:', err);
     }
   }
+
+  static render(list) {
+    const grid = Dom.$('#catalog');
+    if (!grid) return;
+    grid.innerHTML = '';
+    const frag = document.createDocumentFragment();
+
+    list.forEach(({ name, price, img }) => {
+      const col = Dom.make('div', 'col-md-3 col-sm-6 mb-4');
+      col.innerHTML = `
+        <div class="card shadow-sm h-100">
+          <img src="${img}" class="card-img-top" alt="${name}" onerror="this.src='images/default.jpg';">
+          <div class="card-body text-center">
+            <h5>${name}</h5>
+            <p>$${price.toFixed(2)}</p>
+            <button class="btn btn-success btn-sm" data-action="add" data-name="${name}" data-price="${price}">
+              Add to Cart
+            </button>
+          </div>
+        </div>`;
+      frag.appendChild(col);
+    });
+
+    grid.appendChild(frag);
+
+    if (!grid._boundAddHandler) {
+      grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action="add"]');
+        if (!btn) return;
+        const name = btn.getAttribute('data-name');
+        const price = parseFloat(btn.getAttribute('data-price'));
+        Cart.add(name, price);
+        UI.updateCartCount();
+      });
+      grid._boundAddHandler = true;
+    }
+  }
+
+  static populateCategories(products) {
+    const select = Dom.$('#categoryFilter');
+    if (!select) return;
+    const cats = [...new Set(products.map(p => p.category).filter(Boolean))].sort();
+    cats.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat;
+      opt.textContent = cat;
+      select.appendChild(opt);
+    });
+  }
+
+  static bindToolbar() {
+    const search = Dom.$('#searchInput');
+    const catSel = Dom.$('#categoryFilter');
+    const sortSel = Dom.$('#sortSelect');
+    const handler = () => this.filterAndRender();
+    [search, catSel, sortSel].forEach(el => el?.addEventListener('input', handler));
+  }
+
+  static filterAndRender() {
+    const search = Dom.$('#searchInput')?.value.toLowerCase() || '';
+    const cat = Dom.$('#categoryFilter')?.value || '';
+    const sort = Dom.$('#sortSelect')?.value || 'name-asc';
+
+    let filtered = this.allProducts.filter(p =>
+      p.name.toLowerCase().includes(search) &&
+      (cat ? p.category === cat : true)
+    );
+
+    switch (sort) {
+      case 'price-asc': filtered.sort((a,b)=>a.price-b.price); break;
+      case 'price-desc': filtered.sort((a,b)=>b.price-a.price); break;
+      case 'name-desc': filtered.sort((a,b)=>b.name.localeCompare(a.name)); break;
+      default: filtered.sort((a,b)=>a.name.localeCompare(b.name)); break;
+    }
+
+    this.render(filtered);
+  }
+}
+
 
   /* -------------------------------- Cart -------------------------------- */
   class Cart {
