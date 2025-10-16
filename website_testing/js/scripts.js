@@ -20,6 +20,14 @@
     }
     static setCart(cart) { localStorage.setItem('cart', JSON.stringify(cart)); }
     static clearCart() { localStorage.removeItem('cart'); }
+
+    // generic helpers (used by account)
+    static get(key, fallback = null) {
+      try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+      catch { return fallback; }
+    }
+    static set(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+    static remove(key) { localStorage.removeItem(key); }
   }
 
   /* ------------------------------ Catalog ------------------------------ */
@@ -163,6 +171,132 @@
     }
   }
 
+  /* --------------------------- Account (View/Edit) --------------------------- */
+  class UserAuth {
+    static key = 'bb_user';
+    static get() {
+      try { return JSON.parse(localStorage.getItem(this.key)) || null; }
+      catch { return null; }
+    }
+    static save(u)  { localStorage.setItem(this.key, JSON.stringify(u)); }
+    static update(patch) {
+      const u = this.get() || {};
+      const next = { ...u, ...patch };
+      this.save(next);
+      return next;
+    }
+    static del()    { localStorage.removeItem(this.key); }
+    static isLoggedIn() { return !!this.get(); }
+  }
+
+  class AccountPage {
+    static form() { return Dom.$('#registerForm') || Dom.$('#accountForm'); }
+
+    static populate() {
+      const f = this.form(); if (!f) return;
+      const u = UserAuth.get(); if (!u) return; // stay in "Create" mode if no user yet
+
+      Dom.$('#fullName')?.setAttribute('value', u.fullName || '');  // optional; next lines set .value
+      const setIf = (id, v) => { const el = Dom.$(id); if (el) el.value = v ?? ''; };
+      setIf('#fullName', u.fullName);
+      setIf('#email',    u.email);
+      setIf('#password', u.password);
+      setIf('#address',  u.address);
+      setIf('#billing',  u.billing);
+
+      const h = Dom.$('#accountHeading');
+      if (h) h.textContent = 'Edit Account';
+      const submit = f.querySelector('[type="submit"]');
+      if (submit) submit.textContent = 'Save Changes';
+
+      const del = Dom.$('#deleteAccount');
+      if (del) del.classList.remove('d-none');
+    }
+
+    static bind() {
+      const f = this.form(); if (!f) return;
+
+      // show/hide delete button based on stored user
+      const delBtn = Dom.$('#deleteAccount');
+      if (delBtn) delBtn.classList.toggle('d-none', !UserAuth.get());
+
+      // submit handler: create or update
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const val = (id) => Dom.$(id)?.value?.trim() || '';
+        const fullName = val('#fullName');
+        const email    = val('#email');
+        const password = val('#password');
+        const address  = val('#address');
+        const billing  = val('#billing');
+
+        if (!fullName || !email || !password) {
+          alert('Name, email, and password are required.');
+          return;
+        }
+
+        if (UserAuth.isLoggedIn()) {
+          UserAuth.update({ fullName, email, password, address, billing });
+          alert('Account updated.');
+          NavbarUser.render();           
+        } else {
+          UserAuth.save({
+            id: 'u-' + Math.random().toString(36).slice(2,8),
+            fullName, email, password, address, billing
+          });
+          alert('Account created.');
+          NavbarUser.render();           
+          this.populate();               
+        }
+      });
+
+      // delete account
+      if (delBtn) {
+        delBtn.addEventListener('click', () => {
+          if (!confirm('Delete your account? This cannot be undone.')) return;
+
+          UserAuth.del();
+          alert('Account deleted.');
+          NavbarUser.render();           
+
+          ['#fullName','#email','#password','#address','#billing'].forEach(sel => {
+            const el = Dom.$(sel); if (el) el.value = '';
+          });
+          delBtn.classList.add('d-none');
+          const h = Dom.$('#accountHeading'); if (h) h.textContent = 'Create Your Account';
+          const submit = f.querySelector('[type="submit"]'); if (submit) submit.textContent = 'Create Account';
+        });
+      }
+    }
+  }
+
+  /* ------------------------------ Navbar User ------------------------------ */
+  class NavbarUser {
+    static mount() {
+      // Find right-side nav
+      const navRight = document.querySelector('.navbar .navbar-nav.ms-auto');
+      if (!navRight) return;
+
+      // Create once
+      if (!document.getElementById('nav-user-status')) {
+        const li = document.createElement('li');
+        li.id = 'nav-user-status';
+        li.className = 'nav-item ms-2';
+        li.innerHTML = '<span class="nav-link small"></span>';
+        navRight.insertBefore(li, navRight.firstChild);
+      }
+      this.render();
+    }
+
+    static render() {
+      const slot = document.querySelector('#nav-user-status .nav-link');
+      if (!slot) return;
+      const u = (typeof UserAuth !== 'undefined') ? UserAuth.get() : null;
+      slot.textContent = (u && u.email) ? `Logged in as ${u.email}` : '';
+    }
+  }
+
   /* -------------------------------- App --------------------------------- */
   class App {
     static init() {
@@ -171,6 +305,11 @@
       if (Dom.$('#cart-items')) {
         UI.renderCartTable('cart-items', 'cart-total');
       }
+      NavbarUser.mount();
+      NavbarUser.render();
+
+      // account page (view/edit)
+      if (AccountPage.form()) { AccountPage.bind(); AccountPage.populate(); }
 
       // Clear cart buttons (if any elements with data-clear exist)
       Dom.$all('[data-clear-cart]').forEach(btn => {
