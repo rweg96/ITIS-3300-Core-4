@@ -56,12 +56,27 @@
         </tbody>
       </table>
     </div>
-    <div class="d-flex justify-content-end">
+
+      <!-- Coupon section -->
+    <div class="d-flex justify-content-end mt-4">
+      <div class="text-end">
+        <label for="coupon-code" class="form-label fw-bold">Have a coupon?</label>
+        <div class="input-group mb-2" style="max-width: 300px; float: right;">
+          <input type="text" id="coupon-code" class="form-control" placeholder="Enter code">
+          <button class="btn btn-outline-success" id="apply-coupon">Apply</button>
+          <button class="btn btn-outline-danger" id="remove-coupon">Remove</button>
+        </div>
+        <p id="coupon-message" class="text-end small"></p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end flex-column align-items-end mt-3">
+      <p>Subtotal: $<span id="cart-subtotal">0.00</span></p>
+      <p>Discount: -$<span id="cart-discount">0.00</span></p>
       <h4>Total: $<span id="cart-total">0.00</span></h4>
     </div>
     <div class="mt-3 text-end">
-      <button class="btn btn-success" onclick="clearCart(); renderCartTable('cart-items','cart-total')">Checkout</button>
-    </div>
+  <button class="btn btn-success" id="checkout-btn">Checkout</button>
+</div>
   </div>
 
   <footer class="bg-success text-white text-center py-3 mt-4">
