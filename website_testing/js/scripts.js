@@ -246,7 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
   updateCartTotal();
 });
 
-  // -------------------------------- Checkout Logic --------------------------------
+
+// -------------------------------- Checkout Logic --------------------------------
 function checkout() {
   let total = Cart.total();
 
@@ -256,19 +257,30 @@ function checkout() {
   }
 
   alert(`✅ Checkout complete!\nFinal total: $${total.toFixed(2)}`);
+  
+  // calcs reward points
+  const pointsEarned = Math.floor(total / 10);
+
+  // user rewards are updated in local storage to homepage
+  const user = JSON.parse(localStorage.getItem('bb_user')) || null;
+  if (user) {
+    user.rewards = (user.rewards || 0) + pointsEarned;
+    localStorage.setItem('bb_user', JSON.stringify(user));
+    console.log(`🏆 ${pointsEarned} points earned! Total rewards: ${user.rewards}`);
+  }
 
   Cart.clear();
+  UI.renderCartTable("cart-items", "cart-total");
+  UI.updateCartCount();
   updateCartTotal();
 
-  if (typeof renderCartTable === "function") {
-    renderCartTable("cart-items", "cart-total");
-  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const checkoutBtn = document.getElementById("checkout-btn");
   if (checkoutBtn) checkoutBtn.addEventListener("click", checkout);
 });
+
   /* --------------------------------- UI --------------------------------- */
   class UI {
     static updateCartCount() {
@@ -614,6 +626,90 @@ document.addEventListener("DOMContentLoaded", () => {
     saveListBtn.textContent = "Save Changes";
     listModal.show();
   };
+});
+/* ------------------Homepage stuff ---------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const user = JSON.parse(localStorage.getItem('bb_user')) || null;
+  const rewardsSec = document.getElementById("rewardsSection");
+  const rewardsDisplay = document.getElementById("rewardPoints");
+
+  // Show rewards if logged in
+  if (user) {
+    rewardsSec?.classList.remove('d-none');
+    if (rewardsDisplay) rewardsDisplay.textContent = user.rewards || 0;
+  }
+
+  // Load featured items
+  const featured = document.getElementById("featuredItems");
+  if (featured) {
+    fetch('data/catalog.csv')
+      .then(r => r.text())
+      .then(text => {
+        const rows = text.split('\n').slice(1);
+        const products = rows
+          .map(line => line.split(','))
+          .filter(p => p.length >= 3)
+          .map(p => ({
+            name: p[0].trim(),
+            price: parseFloat(p[1]),
+            img: p[2].trim()
+          }))
+          .filter(p => p.name && !isNaN(p.price) && p.img);
+
+        // Pick a few random products
+        const sample = products.sort(() => 0.5 - Math.random()).slice(0, 4);
+
+        featured.innerHTML = sample.map(({ name, price, img }) => `
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card shadow-sm h-100">
+              <img src="${img}" class="card-img-top" alt="${name}" onerror="this.src='images/default.jpg';">
+              <div class="card-body text-center">
+                <h6>${name}</h6>
+                <p>$${price.toFixed(2)}</p>
+                <button class="btn btn-success btn-sm" data-name="${name}" data-price="${price}">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>`).join('');
+
+        // Handle Add to Cart button clicks
+        featured.addEventListener("click", (e) => {
+          const btn = e.target.closest("button[data-name]");
+          if (!btn) return;
+
+          const name = btn.getAttribute("data-name");
+          const price = parseFloat(btn.getAttribute("data-price"));
+
+          Cart.add(name, price);
+          UI.updateCartCount();
+
+  
+        });
+      })
+      .catch(err => console.error("Error loading featured items:", err));
+  }
+   const couponContainer = document.getElementById("couponSection");
+  if (couponContainer) {
+    // avail coupons 
+    const availableCoupons = [
+      { code: "SAVE10", discount: 10, description: "10% off your entire order (expires 12/31/2025)" },
+      { code: "WELCOME5", discount: 5, description: "5% off for new shoppers (expires 01/01/2026)" }
+    ];
+
+    // coupons
+    couponContainer.innerHTML = availableCoupons.map(coupon => `
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card shadow-sm h-100 border-success">
+          <div class="card-body text-center">
+            <h5 class="text-success mb-2">${coupon.code}</h5>
+            <p class="mb-1">${coupon.description}</p>
+            <span class="badge bg-success">${coupon.discount}% OFF</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
 });
 
 })();
