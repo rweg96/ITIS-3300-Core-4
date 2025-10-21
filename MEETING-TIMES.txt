@@ -16,3 +16,28 @@ Members: Tyler, Carson, Jeff, Ryan, Jakia
 9-14 {Final Deliverable 2 Checks}
 Members: Tyler, Carson, Jeff, Ryan, Jakia
 -We went over and finalized our deliverable 2 report ensuring that we met all the requirements according to the published rubric. Most of the project had been completed prior to the weekend, so this was just a weekly checkup and ensured the group was happy with our Deliverable 2. Final checks, word editing, and grammar/spelling was completed. Project will be submitted Monday in the Afternoon. Meeting lasted about 35 minutes.
+
+9-21 {Check in)
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+-We went over our current plan for what we wanted to accomplish and who was going to do what, a lot of group members had other big projects going on so we mostly took this as a rest and recoup week to get other classes stuff done. We did have a short discussion on what people thought they wanted to do for our design,concept, conding, etc. This was the main focus so people could get prepared to start working on our project. Members were communicating throughout the week over our WhatsApp group chat to ensure no one needed help, get clarification, or ask for advice on the best way to do things.
+Meeting lasted about 20 minutes.
+
+9-28 {Begin working on project check in)
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+- We went over specfic things that people wanted to do. This is when it was laid out on featues and functionalites that we want to get accomplished. We figured out that we wanted to focus on a fucntioning cart, account, rewards, coupons, and catalog of items that the user could select through. Initial building of the website occured with creation of the basic layout of the webiste. Check in for group members. Members were communicating throughout the week over our WhatsApp group chat to ensure no one needed help, get clarification, or ask for advice on the best way to do things.
+Meeting lasted about 25 minutes.
+
+10-5 {Checkin in)
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+We began sharing the overall website that we were devleoping with people focusing on their specific core functionalities that they had been personally assigned. Work was going well, people knew where they needed to be at by the next week check in. Members were communicating throughout the week over our WhatsApp group chat to ensure no one needed help, get clarification, or ask for advice on the best way to do things.
+Meeting lasted about 30 minutes
+
+10-12 {Website checkin) 
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+We were starting to finalize individual functionalities and began implementing in the overall website. This was allowing us to see how our scripts were interactign and the overall flow of the website. This is where we did some internal bug checking to see if the functions we implemented were working on how we were expecting them too. We did some changes and fixes and created a checklist of what was finished and what still needed some work. Members were communicating throughout the week over our WhatsApp group chat to ensure no one needed help, get clarification, or ask for advice on the best way to do things.
+Meeting lasted about 45 minutes.
+
+10-19 {Website 90% finished, check in )
+Members: Tyler, Carson, Jeff, Ryan, Jakia
+We were conducting final steps on the website to make sure everything was working, we determeined that Wednesday 10/22 would be the the culminating time for everything to be done so we could switch our attention to completingig Deliverable 3, that was due 10/27 at 11:59Pm. People were being designated what they were in charge of completing for that deliverable to ensure we got everything done. Next focus is the deliverable 3 assignemtn to turn in.
+Meeting lasted about 25 minutes.
