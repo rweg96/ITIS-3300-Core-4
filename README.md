@@ -14,6 +14,37 @@ GROUP PROJECT
 ├── MEETING-TIMES.txt
 ├── note-deliverable1.txt
 ├── note-deliverable2.txt
+├── phase-1
+│   ├── account-edit.html
+│   ├── account.html
+│   ├── cart.html
+│   ├── catalog.html
+│   ├── css
+│   │   └── style.css
+│   ├── data
+│   │   └── catalog.csv
+│   ├── images
+│   ├── index.html
+│   ├── js
+│   │   └── scripts.js
+│   ├── lists.html
+│   ├── login.html
+│   └── orders.html
 ├── README.md
 ├── reports
-└── src
+├── src
+└── website_test
+    ├── account.html
+    ├── cart.html
+    ├── catalog.html
+    ├── css
+    │   └── style.css
+    ├── data
+    │   └── catalog.csv
+    ├── images
+    ├── index.html
+    ├── js
+    │   └── scripts.js
+    ├── lists.html
+    ├── login.html
+    └── orders.html
