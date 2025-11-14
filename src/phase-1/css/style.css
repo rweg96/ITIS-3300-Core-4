@@ -1,0 +1,189 @@
+/* Dark Mode Theme */
+:root {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-elevated: #2d2d2d;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: #3a3a3a;
+  --success-dark: #66bb6a;
+}
+
+body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Container styling */
+.container {
+  color: var(--text-primary);
+}
+
+/* Card styling for dark mode */
+.card {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.card-body {
+  color: var(--text-primary) !important;
+}
+
+/* Typography */
+.lead,
+h1, h2, h3, h4, h5, h6,
+p {
+  color: var(--text-primary) !important;
+}
+
+/* Adjust success color for dark mode */
+.text-success {
+  color: var(--success-dark) !important;
+}
+
+.display-4 {
+  color: var(--text-primary) !important;
+}
+
+/* Form elements */
+input, 
+select, 
+textarea,
+.form-control,
+.form-select {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--success-dark) !important;
+  box-shadow: 0 0 0 0.25rem rgba(102, 187, 106, 0.25) !important;
+}
+
+/* Button adjustments */
+.btn {
+  border: 1px solid var(--border-color);
+}
+
+.btn-success {
+  background-color: var(--success-dark) !important;
+  border-color: var(--success-dark) !important;
+  color: #000 !important;
+}
+
+.btn-success:hover {
+  background-color: #57a65a !important;
+  border-color: #57a65a !important;
+}
+
+/* Navbar - keep it green but adjust for dark mode */
+.navbar-dark {
+  background-color: #1b5e20 !important;
+}
+
+/* Footer - keep it green but adjust for dark mode */
+footer.bg-success {
+  background-color: #1b5e20 !important;
+}
+
+/* Tables */
+table {
+  color: var(--text-primary) !important;
+}
+
+.table {
+  --bs-table-bg: var(--bg-secondary);
+  --bs-table-striped-bg: var(--bg-elevated);
+  --bs-table-hover-bg: var(--bg-elevated);
+  --bs-table-border-color: var(--border-color);
+  color: var(--text-primary) !important;
+}
+
+/* Borders */
+.border {
+  border-color: var(--border-color) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Text muted for dark mode */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Links */
+a {
+  color: var(--success-dark);
+}
+
+a:hover {
+  color: #81c784;
+}
+
+/* Badge adjustments */
+.badge {
+  color: #fff !important;
+}
+
+/* List group items */
+.list-group-item {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.list-group-item:hover {
+  background-color: var(--bg-elevated) !important;
+}
+
+/* Modal adjustments */
+.modal-content {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.modal-header {
+  border-color: var(--border-color) !important;
+}
+
+.modal-footer {
+  border-color: var(--border-color) !important;
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dropdown-item {
+  color: var(--text-primary) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Alert adjustments */
+.alert {
+  background-color: var(--bg-elevated) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
