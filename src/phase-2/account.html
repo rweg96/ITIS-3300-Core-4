@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BasketBuddy - Account Overview</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">BasketBuddy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <!-- scripts.js will auto-insert the user status + top Logout -->
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+          <li class="nav-item"><a class="nav-link" href="lists.html">Lists</a></li>
+          <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+          <li class="nav-item"><a class="nav-link active" href="account.html">Account</a></li>
+          <li class="nav-item position-relative">
+            <a class="nav-link" href="cart.html">
+              <i class="bi bi-cart-fill"></i> Cart
+              <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+                  <!-- Dark Mode toggle button -->
+            <li class="nav-item ms-2 d-flex align-items-center">
+              <button id="themeToggle" class="btn btn-outline-light btn-sm" type="button">
+                 Dark Mode
+                  </button>
+            </li>
+    </div>
+  </nav>
+
+  <!-- Page -->
+  <main class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="mb-0">Account Overview</h2>
+          <!-- Hide this Edit button unless logged in -->
+          <a href="account-edit.html" class="btn btn-success" data-auth="require">Edit Account</a>
+        </div>
+
+        <!-- Overview Card -->
+        <div id="accountOverview" class="card shadow-sm">
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <div class="small text-muted">Full Name</div>
+                <div id="ov-name" class="fw-semibold">—</div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="small text-muted">Email</div>
+                <div id="ov-email" class="fw-semibold">—</div>
+              </div>
+              <div class="col-12">
+                <div class="small text-muted">Address</div>
+                <div id="ov-address" class="fw-semibold">—</div>
+              </div>
+              <div class="col-12">
+                <div class="small text-muted">Billing</div>
+                <div id="ov-billing" class="fw-semibold">—</div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="d-flex flex-column flex-md-row gap-2">
+              <!-- Show Create only when logged out -->
+              <a href="account-edit.html" class="btn btn-success flex-fill" data-auth="guest">Create Account</a>
+              <a href="login.html" class="btn btn-outline-success flex-fill" data-auth="guest">Log In</a>
+
+              <!-- Only show when logged in -->
+              <button id="ov-delete" class="btn btn-outline-danger flex-fill" data-auth="require">Delete Account</button>
+              <button id="ov-logout" class="btn btn-outline-secondary flex-fill" data-auth="require">Log out</button>
+            </div>
+            <p class="text-muted small mt-2 mb-0">
+              Deleting your account removes your saved profile from this device.
+            </p>
+          </div>
+        </div>
+
+        <!-- No Account / Logged-out View -->
+        <div id="noAccount" class="alert alert-light border mt-4 d-none">
+          <h6 class="mb-1">No account found on this device.</h6>
+          <p class="mb-2">Create one now or log in to your saved account.</p>
+          <div class="d-flex gap-2">
+            <a href="account-edit.html" class="btn btn-success flex-fill">Create Account</a>
+            <a href="login.html" class="btn btn-outline-success flex-fill">Log In</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-success text-white text-center py-3 mt-4">
+    &copy; 2025 BasketBuddy. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="js/scripts.js" defer></script>
+
+  <!-- Inline session + user check -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const getUser = () => {
+        try { return JSON.parse(localStorage.getItem('bb_user')) || null; }
+        catch { return null; }
+      };
+      const isSessionActive = () => {
+        try { return !!sessionStorage.getItem('bb_session'); }
+        catch { return false; }
+      };
+
+      const u = getUser();
+      const loggedIn = !!(u && isSessionActive());
+      const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val && String(val).trim() ? val : '—'; };
+
+      if (loggedIn) {
+        set('ov-name', u.fullName);
+        set('ov-email', u.email);
+        set('ov-address', u.address);
+        const last4 = (u.billing || '').replace(/\D+/g,'').slice(-4);
+        set('ov-billing', last4 ? `**** **** **** ${last4}` : '—');
+        document.getElementById('noAccount')?.classList.add('d-none');
+        document.getElementById('accountOverview')?.classList.remove('d-none');
+      } else {
+        ['ov-name','ov-email','ov-address','ov-billing'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '—'; });
+        document.getElementById('accountOverview')?.classList.add('d-none');
+        document.getElementById('noAccount')?.classList.remove('d-none');
+      }
+
+      // Delete account
+      const del = document.getElementById('ov-delete');
+      if (del) {
+        del.addEventListener('click', () => {
+          if (!confirm('Delete your account? This cannot be undone.')) return;
+          localStorage.removeItem('bb_user');
+          try { sessionStorage.removeItem('bb_session'); } catch {}
+          location.reload();
+        });
+      }
+
+      // Logout
+      const logoutBtn = document.getElementById('ov-logout');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          try { sessionStorage.removeItem('bb_session'); } catch {}
+          location.reload();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
