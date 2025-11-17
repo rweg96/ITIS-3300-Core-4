@@ -525,8 +525,8 @@
   }
 
   /* -------------------------------- App --------------------------------- */
-  class App {
-    static init() {
+class App {
+  static init() {
       Catalog.load('data/catalog.csv');
       UI.updateCartCount();
       if (Dom.$('#cart-items')) {
@@ -534,7 +534,7 @@
       }
       NavbarUser.mount();
       NavbarUser.render();
-
+    
       if (AccountPage.form()) { AccountPage.bind(); AccountPage.populate(); }
 
       Dom.$all('[data-clear-cart]').forEach(btn => {
@@ -545,9 +545,10 @@
         });
       });
 
-      AuthUI.refresh(); // NEW: ensure correct state on first paint
+      AuthUI.refresh(); //ensure correct state on first paint
     }
-  }
+}
+
 
   window.addEventListener('DOMContentLoaded', App.init);
 
@@ -767,5 +768,22 @@
       `).join('');
     }
   });
+  
+/* ------------------------------ Dark Mode Toggle ------------------------------ */
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("themeToggle");
+  if (!btn) return;
+
+  if (localStorage.getItem("bb_dark") === "1") {
+    document.documentElement.classList.add("dark");
+    btn.textContent = "Light Mode";
+  }
+
+  btn.addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("bb_dark", isDark ? "1" : "0");
+    btn.textContent = isDark ? "Light Mode" : "Dark Mode";
+  });
+});
 
 })();

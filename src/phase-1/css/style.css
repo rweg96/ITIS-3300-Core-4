@@ -1,0 +1,6 @@
+html.dark {
+  filter: invert(1) hue-rotate(180deg);
+}
+html.dark img {
+  filter: invert(1) hue-rotate(180deg);
+}
