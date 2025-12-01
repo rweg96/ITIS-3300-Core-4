@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
+<body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container">
@@ -21,8 +21,9 @@
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
           <li class="nav-item"><a class="nav-link" href="lists.html">Lists</a></li>
-          <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+          <li class="nav-item"><a class="nav-link active" href="orders.html">Orders</a></li>
           <li class="nav-item"><a class="nav-link" href="account.html">Account</a></li>
+
           <!-- Cart icon -->
           <li class="nav-item position-relative">
             <a class="nav-link" href="cart.html">
@@ -34,52 +35,27 @@
           </li>
         </ul>
       </div>
-           <!-- Dark Mode toggle button -->
-            <li class="nav-item ms-2 d-flex align-items-center">
-              <button id="themeToggle" class="btn btn-outline-light btn-sm" type="button">
-                 Dark Mode
-                  </button>
-            </li>
-        
+
+      <!-- Dark Mode toggle button -->
+      <li class="nav-item ms-2 d-flex align-items-center" style="list-style: none;">
+        <button id="themeToggle" class="btn btn-outline-light btn-sm" type="button">
+          Dark Mode
+        </button>
+      </li>
+
     </div>
   </nav>
 
+  <!-- Orders content -->
   <div class="container my-5">
     <h2 class="mb-4 text-success">Your Orders</h2>
-
-    <div class="row g-4">
-
-      <!-- static orders here just for temporary looks needed -->
-
-
-      <div class="col-md-6">
-        <div class="card shadow-sm">
-          <div class="card-header bg-success text-white">Order #1 - Delivered</div>
-          <div class="card-body">
-            <p><strong>Date:</strong> 2025-xx-xx</p>
-            <p><strong>Total:</strong> $xx.xx</p>
-            <button class="btn btn-success btn-sm">View Details</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="card shadow-sm">
-          <div class="card-header bg-success text-white">Order #2 - Processing</div>
-          <div class="card-body">
-            <p><strong>Date:</strong> 2025-xx-xx</p>
-            <p><strong>Total:</strong> $xx.xx</p>
-            <button class="btn btn-success btn-sm">View Details</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div id="ordersContainer" class="row g-4"></div>
   </div>
 
   <footer class="bg-success text-white text-center py-3 mt-4">
     &copy; 2025 BasketBuddy. All rights reserved.
   </footer>
-  
-<script src="js/scripts.js"></script>
+
+  <script src="js/scripts.js"></script>
 </body>
 </html>

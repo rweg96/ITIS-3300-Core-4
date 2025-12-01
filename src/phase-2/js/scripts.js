@@ -244,26 +244,71 @@
 
   // -------------------------------- Checkout Logic --------------------------------
   function checkout() {
-    let total = Cart.total();
-    if (activeCoupon) {
-      const discount = total * activeCoupon.discount;
-      total -= discount;
+    const cartItems = Cart.items();
+    if (!cartItems.length) {
+      alert("Your cart is empty.");
+      return;
     }
+    // subtotal, discount, final total
+    let subtotal = Cart.total();
+    let discount = 0;
+    if (activeCoupon) {
+      discount = subtotal * activeCoupon.discount;
+    }
+    const finalTotal = subtotal - discount;
 
-    alert(`✅ Checkout complete!\nFinal total: $${total.toFixed(2)}`);
+    // current logged-in user
+    const user = JSON.parse(localStorage.getItem('bb_user')) || null;
 
     // rewards
-    const pointsEarned = Math.floor(total / 10);
-    const user = JSON.parse(localStorage.getItem('bb_user')) || null;
+    const pointsEarned = Math.floor(finalTotal / 10);
     if (user) {
       user.rewards = (user.rewards || 0) + pointsEarned;
       localStorage.setItem('bb_user', JSON.stringify(user));
       console.log(`🏆 ${pointsEarned} points earned! Total rewards: ${user.rewards}`);
     }
 
+    if (user) {
+      const allOrders = JSON.parse(localStorage.getItem('bb_orders') || '[]');
+
+      const newOrder = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        subtotal: subtotal,
+        discount: discount,
+        total: finalTotal,
+        items: cartItems,
+        userEmail: user.email || ""
+      };
+
+      allOrders.push(newOrder);
+      localStorage.setItem('bb_orders', JSON.stringify(allOrders));
+
+      alert(
+        `✅ Checkout complete!\nFinal total: $${finalTotal.toFixed(
+          2
+        )}\nPoints earned: ${pointsEarned}`
+      );
+    } else {
+      alert(
+        `✅ Checkout complete!\nFinal total: $${finalTotal.toFixed(
+          2
+        )}\n\n(Note: you were not logged in, so this order was not saved to order history.)`
+      );
+    }
+
+    // clear cart + reset UI
     Cart.clear();
     UI.renderCartTable("cart-items", "cart-total");
     UI.updateCartCount();
+    activeCoupon = null;
+
+    const msg = document.getElementById("coupon-message");
+    if (msg) {
+      msg.textContent = "";
+      msg.className = "text-end small";
+    }
+
     updateCartTotal();
   }
 
@@ -271,6 +316,8 @@
     const checkoutBtn = document.getElementById("checkout-btn");
     if (checkoutBtn) checkoutBtn.addEventListener("click", checkout);
   });
+
+
 
   /* --------------------------------- UI --------------------------------- */
   class UI {
@@ -794,5 +841,81 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.textContent = isDark ? "Light Mode" : "Dark Mode";
   });
 });
+/* ------------------------------ Orders Page ------------------------------ */
+class OrdersPage {
+  static render() {
+    const container = document.getElementById("ordersContainer");
+    if (!container) return;
+
+    const user = JSON.parse(localStorage.getItem("bb_user")) || null;
+
+    if (!user) {
+      container.innerHTML = `
+        <div class="col-12">
+          <div class="alert alert-info">
+            Please <a href="login.html" class="alert-link">log in</a> to view your order history.
+          </div>
+        </div>`;
+      return;
+    }
+
+    const allOrders = JSON.parse(localStorage.getItem("bb_orders") || "[]");
+    const userOrders = allOrders.filter(
+      (o) => o.userEmail === (user.email || "")
+    );
+
+    if (!userOrders.length) {
+      container.innerHTML = `
+        <div class="col-12">
+          <div class="alert alert-secondary">
+            You don't have any orders yet. Visit the
+            <a href="catalog.html" class="alert-link">catalog</a> to start shopping!
+          </div>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = "";
+    userOrders
+      .slice()
+      .reverse()
+      .forEach((order, idx) => {
+        const itemsHtml = order.items
+          .map(
+            (item) => `
+              <li class="list-group-item d-flex justify-content-between">
+                <span>${item.quantity} × ${item.name}</span>
+                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+              </li>`
+          )
+          .join("");
+
+        const col = document.createElement("div");
+        col.className = "col-md-6";
+        col.innerHTML = `
+          <div class="card shadow-sm h-100">
+            <div class="card-header bg-success text-white">
+              Order #${userOrders.length - idx}
+            </div>
+            <div class="card-body">
+              <p><strong>Date:</strong> ${order.date}</p>
+              <p><strong>Subtotal:</strong> $${order.subtotal.toFixed(2)}</p>
+              <p><strong>Discount:</strong> -$${order.discount.toFixed(2)}</p>
+              <p><strong>Total:</strong> $${order.total.toFixed(2)}</p>
+              <h6 class="mt-3">Items:</h6>
+              <ul class="list-group list-group-flush">
+                ${itemsHtml}
+              </ul>
+            </div>
+          </div>`;
+        container.appendChild(col);
+      });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  OrdersPage.render();
+});
+
 
 })();
