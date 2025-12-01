@@ -216,14 +216,23 @@
   }
 
   function updateCartTotal() {
-    const totalElement = document.getElementById("cart-total");
-    let total = Cart.total();
-    if (activeCoupon) {
-      const discount = total * activeCoupon.discount;
-      total -= discount;
-    }
-    if (totalElement) totalElement.textContent = total.toFixed(2);
+  const subtotalElement = document.getElementById("cart-subtotal");
+  const discountElement = document.getElementById("cart-discount");
+  const totalElement = document.getElementById("cart-total");
+
+  let subtotal = Cart.total();     
+  let discount = 0;
+
+  if (activeCoupon) {
+    discount = subtotal * activeCoupon.discount;
   }
+
+  const total = subtotal - discount;
+
+  if (subtotalElement) subtotalElement.textContent = subtotal.toFixed(2);
+  if (discountElement) discountElement.textContent = discount.toFixed(2);
+  if (totalElement) totalElement.textContent = total.toFixed(2);
+}
 
   document.addEventListener("DOMContentLoaded", () => {
     const applyBtn = document.getElementById("apply-coupon");
