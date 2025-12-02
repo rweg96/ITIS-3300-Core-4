@@ -12,6 +12,7 @@ BasketBuddy Grocery Store Group Project
 │   ├── The Core 4 - 4_ Project Phase-II.pdf
 │   ├── TheCore4-Del1.pptx
 │   ├── TheCore4-Deliverable1-Project Proposal.pdf
+│   ├── The Core 4 - Deliverable 5 Project Phase-III.docx
 │   └── TheCore4-Team Deliverable 2.pdf
 ├── reports
 │   └── pseudocodewarriors_ITIS3300_ Code Inspection Activity.pdf
@@ -54,6 +55,5 @@ BasketBuddy Grocery Store Group Project
 ├── note-deliverable2.txt
 ├── note-deliverable3.txt
 ├── note-deliverable4.txt
+├── note-deliverable5.txt
 └── README.md
-
-
