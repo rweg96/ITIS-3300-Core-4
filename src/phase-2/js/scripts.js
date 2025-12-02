@@ -917,5 +917,8 @@ document.addEventListener("DOMContentLoaded", () => {
   OrdersPage.render();
 });
 
+  if (typeof window !== "undefined") {
+    window.__bbTest = { Cart, Store, UserAuth, coupons };
+  }
 
 })();
